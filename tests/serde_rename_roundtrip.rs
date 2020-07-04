@@ -8,43 +8,43 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 struct Nested {
-    #[serde(rename="A")]
+    #[serde(rename = "A")]
     a: ItemA,
-    #[serde(rename="B")]
+    #[serde(rename = "B")]
     b: ItemB,
-    #[serde(rename="C")]
+    #[serde(rename = "C")]
     c: Option<ItemC>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 enum Wrapper {
-    #[serde(rename="ItA")]
+    #[serde(rename = "ItA")]
     A(ItemA),
-    #[serde(rename="ItB")]
+    #[serde(rename = "ItB")]
     B(ItemB),
-    #[serde(rename="Nd")]
+    #[serde(rename = "Nd")]
     Node(Node),
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 struct ItemA {
-    #[serde(rename="Nm")]
+    #[serde(rename = "Nm")]
     name: String,
-    #[serde(rename="Src")]
+    #[serde(rename = "Src")]
     source: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 struct ItemB {
-    #[serde(rename="Cnt")]
+    #[serde(rename = "Cnt")]
     cnt: usize,
-    #[serde(rename="Nodes")]
+    #[serde(rename = "Nodes")]
     nodes: Nodes,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 struct ItemC {
-    #[serde(rename="Wrp")]
+    #[serde(rename = "Wrp")]
     inner: Wrapper,
 }
 
@@ -87,11 +87,8 @@ fn nested_struct() {
         b: ItemB {
             cnt: 2,
             nodes: Nodes {
-                items: vec![
-                    Node::Boolean(false),
-                    Node::EOF,
-                ]
-            }
+                items: vec![Node::Boolean(false), Node::EOF],
+            },
         },
         c: None,
     };
@@ -117,18 +114,15 @@ fn nested_enum() {
         b: ItemB {
             cnt: 2,
             nodes: Nodes {
-                items: vec![
-                    Node::Boolean(false),
-                    Node::EOF,
-                ]
-            }
+                items: vec![Node::Boolean(false), Node::EOF],
+            },
         },
         c: Some(ItemC {
             inner: Wrapper::A(ItemA {
                 name: "Apple".to_string(),
                 source: "Orchard".to_string(),
-            })
-        })
+            }),
+        }),
     };
 
     let ser_item = to_string(&should_be).unwrap();

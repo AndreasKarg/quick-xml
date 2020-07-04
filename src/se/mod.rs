@@ -78,7 +78,10 @@ impl<W: Write> Serializer<W> {
     }
 
     fn activate_pending_field(&mut self) -> Result<(), DeError> {
-        println!("Attempting to activate pending: Pending={:?}   Fields={:?}", self.pending_field, self.fields);
+        println!(
+            "Attempting to activate pending: Pending={:?}   Fields={:?}",
+            self.pending_field, self.fields
+        );
         if let Some(f) = self.pending_field.take() {
             self.enter_field(f)?;
         }
